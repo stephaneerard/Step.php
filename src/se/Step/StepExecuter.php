@@ -1,7 +1,11 @@
 <?php
+namespace se\Step;
+
 abstract class StepExecuter
 {
 	private $step = null;
+	
+	private $result = null;
 	
 	/**
 	 * 
@@ -20,7 +24,14 @@ abstract class StepExecuter
 	public function execute()
 	{
 		$this->args = func_get_args();
-		$this->_execute();
+		$this->result = $this->_execute();
+		
+		return $this;
+	}
+	
+	public function result()
+	{
+		return $this->result;
 	}
 	
 	abstract protected function _execute();

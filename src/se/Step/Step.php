@@ -1,15 +1,9 @@
 <?php
+namespace se\Step;
 
-require __DIR__ . '/StepSerialExecuter.class.php';
-require __DIR__ . '/StepParallelExecuter.class.php';
-
-class Step implements ArrayAccess, IteratorAggregate
+class Step implements \ArrayAccess, \IteratorAggregate
 {
 	protected $steps = array();
-
-	public function __construct()
-	{
-	}
 
 	public function setSteps($steps)
 	{
@@ -30,7 +24,7 @@ class Step implements ArrayAccess, IteratorAggregate
 
 	/**
 	 * 
-	 * @return Step
+	 * @return Closure
 	 */
 	public static function create()
 	{
@@ -44,7 +38,7 @@ class Step implements ArrayAccess, IteratorAggregate
 
 	public function getIterator()
 	{
-		return new ArrayIterator($this->steps);
+		return new \ArrayIterator($this->steps);
 	}
 
 	public function offsetExists($offset)

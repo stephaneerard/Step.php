@@ -1,12 +1,11 @@
 <?php
-require_once __DIR__ . '/StepExecuter.class.php';
+namespace se\Step;
 
 class StepSerialExecuter extends StepExecuter
 {
-
 	protected $inBetween = null;
 
-	public function inBetween(Closure $closure)
+	public function afterEach(\Closure $closure)
 	{
 		$this->inBetween = $closure;
 
@@ -25,7 +24,7 @@ class StepSerialExecuter extends StepExecuter
 				$result = call_user_func_array($callable, $result);
 				$error = null;
 			}
-			catch(Exception $e)
+			catch(\Exception $e)
 			{
 				$error = $e;
 				$result = $e;
@@ -36,11 +35,11 @@ class StepSerialExecuter extends StepExecuter
 			$this->executeInBetween($result, $error);
 		}
 
-		if($error instanceof Exception)
+		if($error instanceof \Exception)
 		{
 			throw $error;
 		}
-		return $result;
+		return $result[0];
 	}
 	
 	private function executeInBetween($result, $error)
